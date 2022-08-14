@@ -1,0 +1,15 @@
+<h1 class="description"><%= @data["name"] %></h1>
+<img class="image" src="<%= github_avatar(@data["id"])%>" alt="<%= @data["name"] %>" width="500px" height="500px">
+
+<div>
+    <h4>Public Github repositories:</h4>
+  <% n = @data_repos.size %>
+  <% n.times do |i| %>
+  <ul>
+     <li><%= "\"#{@data_repos[i]["name"]}\" created at: #{Date.parse(@data_repos[i]["created_at"]).strftime("%d-%m-%Y")}." %></li>
+     <hr>
+  </ul>
+  <% end %>
+</div>
+
+<p>Go back to the <a href="/" title="Home page">Home page</a> and start to search again.</p>
