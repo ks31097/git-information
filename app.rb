@@ -1,12 +1,23 @@
 require 'sinatra'
-require 'sinatra/reloader' if development?
+require 'sinatra/flash'
+require 'sinatra/reloader'
 require 'net/http'
 require 'json'
 require 'date'
 
 require_relative 'helpers'
 
+# SinatraApp class
+
 class GitInfo < Sinatra::Base
+  # for auto reloading website
+  configure :development do
+    register Sinatra::Reloader
+  end
+
+  enable :sessions
+  register Sinatra::Flash
+
   class GitNoMethodError < StandardError; end
   set :root, File.dirname(__FILE__)
 
@@ -14,23 +25,18 @@ class GitInfo < Sinatra::Base
 
   disable :show_exceptions
 
-  before do
-    @title = 'Git info'
-  end
-
   get '/' do
     erb :index
   end
 
   get '/info' do
-    github_login = params_github_login
+    @github_login = params_github_login
 
-    url = github_url(github_login)
+    url = github_url(@github_login)
     @data = http_client(url)
 
     url = @data["repos_url"]
     @data_repos = http_client(url)
-
     erb :info
   end
 
@@ -39,12 +45,12 @@ class GitInfo < Sinatra::Base
   end
 
   error ArgumentError do
-    @error = 'This account doesn\'t exist'
+    flash.now[:'error-message'] = "Account with name: \"#{@github_login}\" doesn\'t exist"
     erb :index
   end
 
   error NoMethodError do
-    @error = 'The page you are looking for is missing.'
+    flash.now[:'error-message'] = 'The page you are looking for is missing.'
     erb :index
   end
 end
