@@ -1,0 +1,25 @@
+:root {
+  --red: #903;
+}
+
+.container {
+  padding-top: 30px;
+}
+
+.error-message {
+  font-weight: bold;
+  margin: 10px;
+  color: var(--red);
+}
+
+.attention {
+  color: var(--red);
+}
+
+.text {
+  padding-top: 10px;
+}
+
+.form-group {
+  padding: 5px;
+}
