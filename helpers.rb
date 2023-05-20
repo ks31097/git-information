@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 module Sinatra
   module GitInfo
+    # GitInfo helpers module
     module Helpers
       def params_github_login
-        params[:github_login].split(" ").join
+        params[:github_login].split(' ').join
       end
 
       def github_url(github_login)
