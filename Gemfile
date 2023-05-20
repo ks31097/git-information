@@ -8,7 +8,9 @@ ruby "3.0.4"
 gem "sinatra", "~> 2.2"
 gem "sinatra-contrib", "~> 2.2"
 gem "puma", "~> 5.6"
-gem "thin", "~> 1.8"
-gem "falcon", "~> 0.41.0"
-gem "webrick", "~> 1.7"
+gem "rake", "~> 13.0"
 gem "sinatra-flash", "~> 0.3.0"
+
+group :development do
+  gem "rubocop", "~> 1.51", require: false
+end
