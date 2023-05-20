@@ -1,4 +1,6 @@
-require 'sinatra'
+# frozen_string_literal: true
+
+require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/reloader'
 require 'net/http'
@@ -7,11 +9,9 @@ require 'date'
 
 require_relative 'helpers'
 
-# SinatraApp class
-
+# create class SinatraApp
 class GitInfo < Sinatra::Base
-  # for auto reloading website
-  configure :development do
+  configure :development do   # auto reloading website
     register Sinatra::Reloader
   end
 
@@ -35,7 +35,7 @@ class GitInfo < Sinatra::Base
     url = github_url(@github_login)
     @data = http_client(url)
 
-    url = @data["repos_url"]
+    url = @data['repos_url']
     @data_repos = http_client(url)
     erb :info
   end
